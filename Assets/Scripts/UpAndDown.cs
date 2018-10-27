@@ -19,9 +19,6 @@ public class UpAndDown : MonoBehaviour
     [SerializeField]
     private Transform transformB;
 
-    public UpAndDown UDScript;
-    public ButtonScripts btnScript;
-
     // Use this for initialization
     void Start()
     {
@@ -29,10 +26,6 @@ public class UpAndDown : MonoBehaviour
         posB = transformB.localPosition;
 
         nexPos = posB;
-
-        btnScript = GetComponent<ButtonScripts>();
-        btnScript.enabled = true;
-        UDScript.enabled = true;
     }
 
     // Update is called once per frame
@@ -57,15 +50,5 @@ public class UpAndDown : MonoBehaviour
         nexPos = nexPos != posA ? posA : posB;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player")) //Tjekker om mit gameobject rammer "Player"
-        {
-            if (btnScript.enabled == true)
-            {
-                UDScript.enabled = true;
-            }
-        }
-    }
 }
 
