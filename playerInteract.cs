@@ -23,7 +23,7 @@ public class playerInteract : MonoBehaviour {
             currentInterObj = other.gameObject;
             currentInterObjscript = currentInterObj.GetComponent<InterationObject>();
         }
-        if (currentInterObj)
+        if (currentInterObj && other.CompareTag("interObject"))
         {
             //Check to see if this obeject is stored in inventory
             if (currentInterObjscript.inventory)
