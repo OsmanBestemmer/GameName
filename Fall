@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Fall : MonoBehaviour {
+
+    Rigidbody2D rb;
+    Vector2 initialPosition;
+    bool platformMovingBack;
+
+	// Use this for initialization
+	void Start () {
+        rb = GetComponent<Rigidbody2D>();
+        initialPosition = transform.position;
+		
+	}
+	
+	// Update is called once per frame
+	void Update() {
+        if (platformMovingBack)
+            gameObject.transform.position = initialPosition;
+
+        if (transform.position.y == initialPosition.y)
+            platformMovingBack = false;
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && !platformMovingBack)
+        {
+            Invoke("DropPlatform", 0.5f);
+        }
+    }
+
+    void DropPlatform()
+    {
+        rb.isKinematic = false;
+        Invoke("Dissapear", 0.7f);
+        Invoke("GetPlatFormBack", 4f);
+    }
+
+    void Dissapear()
+    {
+        gameObject.SetActive(false);
+
+    }
+
+    void GetPlatFormBack()
+    {
+        rb.velocity = Vector2.zero;
+        rb.isKinematic = true;
+        platformMovingBack = true;
+        gameObject.SetActive(true);
+    }
+}
